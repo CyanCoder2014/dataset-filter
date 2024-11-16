@@ -3,6 +3,7 @@ package com.example.datasetFilter.service;
 
 import com.example.datasetFilter.entity.NameEntity;
 import com.example.datasetFilter.entity.TitleEntity;
+import com.example.datasetFilter.exceptions.BadRequestException;
 import com.example.datasetFilter.repository.NameRepository;
 import com.example.datasetFilter.repository.TitleRepository;
 import lombok.RequiredArgsConstructor;
@@ -38,7 +39,7 @@ public class ImportServiceImpl implements ImportService {
                 titleEntity.setTitleType(fields[1]);
                 titleEntity.setPrimaryTitle(fields[2]);
                 titleEntity.setOriginalTitle(fields[3]);
-                titleEntity.setIsAdult(Boolean.valueOf(fields[4]));
+                titleEntity.setIsAdult(!fields[4].equals("0"));
                 titleEntity.setStartYear(fields[5]);
                 titleEntity.setEndYear(fields[6]);
                 titleEntity.setRuntimeMinutes(Integer.parseInt(fields[7]));
@@ -49,7 +50,7 @@ public class ImportServiceImpl implements ImportService {
                 titleRepository.save(titleEntity);
             }
         } catch (IOException e) {
-            throw new RuntimeException(e); // todo: dev exception handler
+            throw new BadRequestException("read file error"); // todo: dev exception handler
         }
     }
 
