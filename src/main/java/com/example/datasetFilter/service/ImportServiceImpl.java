@@ -34,14 +34,16 @@ public class ImportServiceImpl implements ImportService {
                 }
                 String[] fields = line.split("\t");
                 TitleEntity titleEntity = new TitleEntity();
-                titleEntity.setPrimaryTitle(fields[0]);
-                titleEntity.setOriginalTitle(fields[1]);
-                titleEntity.setIsAdult(Boolean.valueOf(fields[2]));
-                titleEntity.setStartYear(fields[3]);
-                titleEntity.setEndYear(fields[4]);
-                titleEntity.setRuntimeMinutes(Integer.parseInt(fields[5]));
+                titleEntity.setId(fields[0]);
+                titleEntity.setTitleType(fields[1]);
+                titleEntity.setPrimaryTitle(fields[2]);
+                titleEntity.setOriginalTitle(fields[3]);
+                titleEntity.setIsAdult(Boolean.valueOf(fields[4]));
+                titleEntity.setStartYear(fields[5]);
+                titleEntity.setEndYear(fields[6]);
+                titleEntity.setRuntimeMinutes(Integer.parseInt(fields[7]));
 
-                String genresStr = fields[5].equals("\\N") ? "" : fields[5];
+                String genresStr = fields[8].equals("\\N") ? "" : fields[8];
                 titleEntity.setGenres(Arrays.stream(genresStr.split(",")).toList());
 
                 titleRepository.save(titleEntity);
