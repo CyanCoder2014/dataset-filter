@@ -11,7 +11,7 @@ import java.util.List;
 
 @Data
 @Entity
-public class Title {
+public class TitleEntity {
 
     @Id
     private String id;
@@ -19,11 +19,11 @@ public class Title {
     private String titleType;
     private String primaryTitle;
     private String originalTitle;
-    private String isAdult;
+    private Boolean isAdult;
     private String startYear;
     private String endYear;
-    private String runtimeMinutes;
-    private String genres;
+    private Integer runtimeMinutes;
+    private List<String> genres;
 
     private List<String> directors;
     private List<String> writers;

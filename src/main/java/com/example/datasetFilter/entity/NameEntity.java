@@ -12,7 +12,7 @@ import java.util.List;
 
 @Data
 @Entity
-public class Names {
+public class NameEntity {
 
     @Id
     private String id;
