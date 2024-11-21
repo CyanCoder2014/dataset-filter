@@ -32,4 +32,5 @@ public class BasicException extends RuntimeException {
         super(message, cause, enableSuppression, writableStackTrace);
         this.code = code;
     }
+
 }

@@ -24,4 +24,5 @@ public class BadRequestException extends BasicException {
     public String getMessage() {
         return message;
     }
+
 }
