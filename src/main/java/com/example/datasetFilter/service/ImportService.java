@@ -4,5 +4,5 @@ import org.springframework.web.multipart.MultipartFile;
 
 public interface ImportService {
 
-    void importTiltData(MultipartFile file);
+    void importTiltData(MultipartFile file, int maxNumberOfRecords);
 }

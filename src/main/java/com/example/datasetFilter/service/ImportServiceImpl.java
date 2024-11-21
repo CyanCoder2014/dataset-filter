@@ -23,11 +23,12 @@ public class ImportServiceImpl implements ImportService {
     private final NameRepository nameRepository;
 
 
-    public void importTiltData(MultipartFile file) {
+    public void importTiltData(MultipartFile file, int maxNumberOfRecords) {
         try (BufferedReader br = new BufferedReader(new InputStreamReader(file.getInputStream()))) {
             String line;
             boolean firstLine = true;
 
+            int number = 0;
             while ((line = br.readLine()) != null) {
                 if (firstLine) {
                     firstLine = false; // Skip header
@@ -42,12 +43,15 @@ public class ImportServiceImpl implements ImportService {
                 titleEntity.setIsAdult(!fields[4].equals("0"));
                 titleEntity.setStartYear(fields[5]);
                 titleEntity.setEndYear(fields[6]);
-                titleEntity.setRuntimeMinutes(Integer.parseInt(fields[7]));
+                titleEntity.setRuntimeMinutes(fields[7].equals("\\N") ? 0 : Integer.parseInt(fields[7]));
 
                 String genresStr = fields[8].equals("\\N") ? "" : fields[8];
                 titleEntity.setGenres(Arrays.stream(genresStr.split(",")).toList());
 
                 titleRepository.save(titleEntity);
+                number++;
+                if (number > maxNumberOfRecords)
+                    break;
             }
         } catch (IOException e) {
             throw new BadRequestException("read file error"); // todo: dev exception handler
