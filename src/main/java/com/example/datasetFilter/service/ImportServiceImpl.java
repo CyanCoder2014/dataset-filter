@@ -14,6 +14,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Arrays;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -57,6 +58,114 @@ public class ImportServiceImpl implements ImportService {
             throw new BadRequestException("read file error"); // todo: dev exception handler
         }
     }
+
+
+
+
+    public void importCrewData(MultipartFile file, int maxNumberOfRecords) {
+        try (BufferedReader br = new BufferedReader(new InputStreamReader(file.getInputStream()))) {
+            String line;
+            boolean firstLine = true;
+
+            int number = 0;
+            while ((line = br.readLine()) != null) {
+                if (firstLine) {
+                    firstLine = false; // Skip header
+                    continue;
+                }
+                String[] fields = line.split("\t");
+                Optional<TitleEntity> titleEntityOptional = titleRepository.findById(fields[0]);
+
+                if (titleEntityOptional.isPresent()){
+                    TitleEntity titleEntity = titleEntityOptional.get();
+
+                    String directorsStr = fields[1].equals("\\N") ? "" : fields[1];
+                    titleEntity.setDirectors(Arrays.stream(directorsStr.split(",")).toList());
+
+                    String writersStr = fields[2].equals("\\N") ? "" : fields[2];
+                    titleEntity.setWriters(Arrays.stream(writersStr.split(",")).toList());
+
+                    titleRepository.save(titleEntity);
+                }
+
+                number++;
+                if (number > maxNumberOfRecords)
+                    break;
+            }
+        } catch (IOException e) {
+            throw new BadRequestException("read file error"); // todo: dev exception handler
+        }
+    }
+
+
+    public void importNameData(MultipartFile file, int maxNumberOfRecords) {
+        try (BufferedReader br = new BufferedReader(new InputStreamReader(file.getInputStream()))) {
+            String line;
+            boolean firstLine = true;
+
+            int number = 0;
+            while ((line = br.readLine()) != null) {
+                if (firstLine) {
+                    firstLine = false; // Skip header
+                    continue;
+                }
+                String[] fields = line.split("\t");
+                NameEntity nameEntity = new NameEntity();
+
+
+                nameEntity.setId(fields[0]);
+                nameEntity.setPrimaryName(fields[1]);
+                nameEntity.setBirthYear(fields[2]);
+                nameEntity.setDeathYear(fields[3]);
+                nameEntity.setPrimaryProfession(fields[4]);
+
+                String titlesStr = fields[5].equals("\\N") ? "" : fields[5];
+                nameEntity.setKnownForTitles(Arrays.stream(titlesStr.split(",")).toList());
+
+                nameRepository.save(nameEntity);
+                number++;
+                if (number > maxNumberOfRecords)
+                    break;
+            }
+        } catch (IOException e) {
+            throw new BadRequestException("read file error"); // todo: dev exception handler
+        }
+    }
+
+
+    public void importRatingData(MultipartFile file, int maxNumberOfRecords) {
+        try (BufferedReader br = new BufferedReader(new InputStreamReader(file.getInputStream()))) {
+            String line;
+            boolean firstLine = true;
+
+            int number = 0;
+            while ((line = br.readLine()) != null) {
+                if (firstLine) {
+                    firstLine = false; // Skip header
+                    continue;
+                }
+                String[] fields = line.split("\t");
+                Optional<TitleEntity> titleEntityOptional = titleRepository.findById(fields[0]);
+
+                if (titleEntityOptional.isPresent()){
+                    TitleEntity titleEntity = titleEntityOptional.get();
+                    titleEntity.setAverageRating(Double.parseDouble(fields[1]));
+                    titleEntity.setNumVotes(Integer.parseInt(fields[2]));
+
+                    titleRepository.save(titleEntity);
+                }
+
+                number++;
+                if (number > maxNumberOfRecords)
+                    break;
+            }
+        } catch (IOException e) {
+            throw new BadRequestException("read file error"); // todo: dev exception handler
+        }
+    }
+
+
+
 
 
 }
