@@ -17,9 +17,7 @@ public class FilterController {
 
     @GetMapping("get-director-writer-same")
     public List<TitleEntity> findTitlesWhereDirectorAndWriterAreSame() {
-
             return filterService.findTitlesWhereDirectorAndWriterAreSame();
-
     }
 
 
