@@ -2,6 +2,7 @@ package com.example.datasetFilter.api.controller;
 
 
 import com.example.datasetFilter.api.dto.FilterByActorsRequestDto;
+import com.example.datasetFilter.entity.NameEntity;
 import com.example.datasetFilter.entity.TitleEntity;
 import com.example.datasetFilter.service.FilterService;
 import lombok.RequiredArgsConstructor;
@@ -23,7 +24,7 @@ public class FilterController {
 
 
     @PostMapping("filter-by-actors")
-    public List<TitleEntity> filterByActors(@RequestBody FilterByActorsRequestDto requestDto) {
+    public List<NameEntity> filterByActors(@RequestBody FilterByActorsRequestDto requestDto) {
         return filterService.filterByActors(requestDto);
     }
 

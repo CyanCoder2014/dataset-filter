@@ -2,7 +2,9 @@ package com.example.datasetFilter.service;
 
 
 import com.example.datasetFilter.api.dto.FilterByActorsRequestDto;
+import com.example.datasetFilter.entity.NameEntity;
 import com.example.datasetFilter.entity.TitleEntity;
+import com.example.datasetFilter.repository.NameRepository;
 import com.example.datasetFilter.repository.TitleRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -15,6 +17,7 @@ public class FilterServiceImpl implements FilterService{
 
 
     private final TitleRepository titleRepository;
+    private final NameRepository nameRepository;
 
     @Override
     public List<TitleEntity> findTitlesWhereDirectorAndWriterAreSame(){
@@ -23,11 +26,9 @@ public class FilterServiceImpl implements FilterService{
     }
 
     @Override
-    public List<TitleEntity> filterByActors(FilterByActorsRequestDto requestDto) {
+    public List<NameEntity> filterByActors(FilterByActorsRequestDto requestDto) {
 
-
-
-        return null;
+        return nameRepository.findCommonMovieTitlesByActors(requestDto.actor1(), requestDto.actor2());
     }
 
 }
