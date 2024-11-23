@@ -25,7 +25,10 @@ public interface TitleRepository  extends JpaRepository<TitleEntity, String> {
     List<TitleEntity> findAllByIdIn(List<String> ids);
 
 
-    @Query("SELECT * from Title_Entity where genres LIKE  '%:genre%' order BY (num_Votes * average_Rating) ASC")
+    @Query(value ="SELECT t.* FROM Title_Entity t " +
+            "where t.genres LIKE CONCAT('%', :genre, '%') " +
+            "ORDER BY (t.num_Votes * t.average_Rating) ASC",
+            nativeQuery = true)
     List<TitleEntity> findByGenreOrderedByRate(@Param("genre") String genre);
 
 }
