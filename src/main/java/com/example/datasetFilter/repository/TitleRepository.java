@@ -12,8 +12,11 @@ public interface TitleRepository  extends JpaRepository<TitleEntity, String> {
 
     List<TitleEntity> findByTitleType(String titleType);
 
-    @Query(value = "SELECT * FROM Title_Entity t " +
-            "WHERE t.directors = t.writers " ,
+    @Query(value = "SELECT t.* , n.*  FROM Title_Entity AS t \n" +
+            "JOIN Name_Entity n \n" +
+            "ON n.id = TRIM('[]' FROM t.directors)\n" +
+            "where TRIM('[]' FROM t.directors) = TRIM('[]' FROM t.writers)\n" +
+            "and end_year = '\\N'\n " ,
             nativeQuery = true)
     List<TitleEntity> findTitlesWhereDirectorAndWriterAreSame();
 
