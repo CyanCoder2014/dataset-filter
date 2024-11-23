@@ -11,4 +11,6 @@ public interface FilterService {
     List<TitleEntity> findTitlesWhereDirectorAndWriterAreSame();
 
     List<TitleEntity> filterByActors(FilterByActorsRequestDto requestDto);
+
+    List<TitleEntity> findByGenreOrderedByRate(String genre);
 }

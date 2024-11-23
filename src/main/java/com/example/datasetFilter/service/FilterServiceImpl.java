@@ -41,4 +41,11 @@ public class FilterServiceImpl implements FilterService{
         return titleRepository.findAllByIdIn(titleIds);
     }
 
+
+    @Override
+    public List<TitleEntity> findByGenreOrderedByRate(String genre){
+
+        return titleRepository.findByGenreOrderedByRate(genre);
+    }
+
 }

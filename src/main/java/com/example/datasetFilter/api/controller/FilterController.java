@@ -29,5 +29,11 @@ public class FilterController {
     }
 
 
+    @PostMapping("filter-genre")
+    public List<TitleEntity> findByGenreOrderedByRate(@RequestBody String genre) {
+        return filterService.findByGenreOrderedByRate(genre);
+    }
+
+
 
 }
