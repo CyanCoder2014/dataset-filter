@@ -24,7 +24,7 @@ public class FilterController {
 
 
     @PostMapping("filter-by-actors")
-    public List<NameEntity> filterByActors(@RequestBody FilterByActorsRequestDto requestDto) {
+    public List<TitleEntity> filterByActors(@RequestBody FilterByActorsRequestDto requestDto) {
         return filterService.filterByActors(requestDto);
     }
 

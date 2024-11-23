@@ -9,14 +9,16 @@ import java.util.Optional;
 
 public interface TitleRepository  extends JpaRepository<TitleEntity, String> {
 
-    Optional<TitleEntity> findById(String id);
 
     List<TitleEntity> findByTitleType(String titleType);
 
     @Query(value = "SELECT * FROM Title_Entity t " +
-            "WHERE t.directors LIKE CONCAT('%', ',', t.writers, ',', '%') " +
-            "OR t.directors LIKE CONCAT('%', t.writers, '%')",
+            "WHERE t.directors = t.writers " ,
             nativeQuery = true)
     List<TitleEntity> findTitlesWhereDirectorAndWriterAreSame();
+
+
+    List<TitleEntity> findAllByIdIn(List<String> ids);
+
 
 }

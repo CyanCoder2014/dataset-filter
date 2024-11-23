@@ -10,5 +10,5 @@ public interface FilterService {
 
     List<TitleEntity> findTitlesWhereDirectorAndWriterAreSame();
 
-    List<NameEntity> filterByActors(FilterByActorsRequestDto requestDto);
+    List<TitleEntity> filterByActors(FilterByActorsRequestDto requestDto);
 }
