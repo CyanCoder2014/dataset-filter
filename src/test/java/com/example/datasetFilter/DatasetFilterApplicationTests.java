@@ -125,6 +125,17 @@ class DatasetFilterApplicationTests {
     }
 
 
+    @Test
+    void findByGenreOrderedByRateReturn200() throws Exception {
+        filterPostDataReturn200("filter-genre",
+
+                "{\n" +
+                        "    \"sdfsdf\": \"ssdf\"\n" +
+                        "}"
+        );
+    }
+
+
     @AfterAll
     void deleteTestData() {
         titleRepository.delete(TitleEntity.builder()
