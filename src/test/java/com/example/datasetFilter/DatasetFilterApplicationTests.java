@@ -4,6 +4,8 @@ import com.example.datasetFilter.entity.NameEntity;
 import com.example.datasetFilter.entity.TitleEntity;
 import com.example.datasetFilter.repository.NameRepository;
 import com.example.datasetFilter.repository.TitleRepository;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -11,6 +13,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -105,6 +108,22 @@ class DatasetFilterApplicationTests {
         );
     }
 
+    @Test
+    void filterByActorsReturnDataNOtNull() throws Exception {
+        String response = mockMvc.perform(post("/api/v1/filter/" + "filter-by-actors")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("{\n" +
+                                "    \"actor1\": \"Fred Astaire3\",\n" +
+                                "    \"actor2\": \"Lauren Bacall3\"\n" +
+                                "}")
+                )
+                .andExpect(status().isOk()).andReturn().getResponse().getContentAsString();
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        List<TitleEntity> list = objectMapper.readValue(response, new TypeReference<>() {});
+        assertThat(list).extracting(TitleEntity::getId).isNotNull();
+    }
+
 
     @AfterAll
     void deleteTestData() {
@@ -124,7 +143,6 @@ class DatasetFilterApplicationTests {
                 .id("2").primaryName("Lauren Bacall3").deathYear("/N").knownForTitles(List.of("1"))
                 .build());
     }
-
 
 
 }
