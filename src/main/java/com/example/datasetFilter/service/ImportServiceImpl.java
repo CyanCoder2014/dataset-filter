@@ -14,6 +14,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -55,7 +56,7 @@ public class ImportServiceImpl implements ImportService {
                     break;
             }
         } catch (IOException e) {
-            throw new BadRequestException("read file error"); // todo: dev exception handler
+            throw new BadRequestException("read file error"); 
         }
     }
 
@@ -80,10 +81,14 @@ public class ImportServiceImpl implements ImportService {
                     TitleEntity titleEntity = titleEntityOptional.get();
 
                     String directorsStr = fields[1].equals("\\N") ? "" : fields[1];
-                    titleEntity.setDirectors(Arrays.stream(directorsStr.split(",")).toList());
+                    List<String> directors = Arrays.stream(directorsStr.split(",")).toList();
+                    titleEntity.setDirectors(directors);
 
                     String writersStr = fields[2].equals("\\N") ? "" : fields[2];
-                    titleEntity.setWriters(Arrays.stream(writersStr.split(",")).toList());
+                    List<String> writers = Arrays.stream(writersStr.split(",")).toList();
+                    titleEntity.setWriters(writers);
+
+                    titleEntity.setPartialCommonDir(directors.stream().anyMatch(writers::contains));
 
                     titleRepository.save(titleEntity);
                 }
@@ -93,7 +98,7 @@ public class ImportServiceImpl implements ImportService {
                     break;
             }
         } catch (IOException e) {
-            throw new BadRequestException("read file error"); // todo: dev exception handler
+            throw new BadRequestException("read file error"); 
         }
     }
 
@@ -128,7 +133,7 @@ public class ImportServiceImpl implements ImportService {
                     break;
             }
         } catch (IOException e) {
-            throw new BadRequestException("read file error"); // todo: dev exception handler
+            throw new BadRequestException("read file error"); 
         }
     }
 
@@ -160,7 +165,7 @@ public class ImportServiceImpl implements ImportService {
                     break;
             }
         } catch (IOException e) {
-            throw new BadRequestException("read file error"); // todo: dev exception handler
+            throw new BadRequestException("read file error"); 
         }
     }
 

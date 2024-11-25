@@ -31,4 +31,8 @@ public interface TitleRepository  extends JpaRepository<TitleEntity, String> {
             nativeQuery = true)
     List<TitleEntity> findByGenreOrderedByRate(@Param("genre") String genre);
 
+
+    List<TitleEntity> findAllByPartialCommonDir(boolean partialCommonDirAndWriter);
+
+
 }

@@ -48,4 +48,9 @@ public class FilterServiceImpl implements FilterService{
         return titleRepository.findByGenreOrderedByRate(genre);
     }
 
+    public List<TitleEntity> findAllByPartialCommonDirAndWriterPartially(){
+
+        return titleRepository.findAllByPartialCommonDir(true);
+    }
+
 }

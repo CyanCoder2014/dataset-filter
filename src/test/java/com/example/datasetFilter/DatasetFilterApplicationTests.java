@@ -85,6 +85,12 @@ class DatasetFilterApplicationTests {
         );
     }
 
+    @Test
+    void filterTitlesWhereDirectorAndWriterArePartiallySameReturn200() throws Exception {
+        filterGetDataReturn200("get-director-writer-partial-same"
+        );
+    }
+
 
     @Test
     void filterByActorsReturn200() throws Exception {

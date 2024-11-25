@@ -33,6 +33,7 @@ public class TitleEntity {
 
     private List<String> directors;
     private List<String> writers;
+    private boolean partialCommonDir = false;
 
     private Double averageRating;
     private Integer numVotes;

@@ -22,6 +22,11 @@ public class FilterController {
             return filterService.findTitlesWhereDirectorAndWriterAreSame();
     }
 
+    @GetMapping("get-director-writer-partial-same")
+    public List<TitleEntity> findAllByPartialCommonDirAndWriter() {
+            return filterService.findAllByPartialCommonDirAndWriterPartially();
+    }
+
 
     @PostMapping("filter-by-actors")
     public List<TitleEntity> filterByActors(@RequestBody FilterByActorsRequestDto requestDto) {

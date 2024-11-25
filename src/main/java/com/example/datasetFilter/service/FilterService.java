@@ -13,4 +13,6 @@ public interface FilterService {
     List<TitleEntity> filterByActors(FilterByActorsRequestDto requestDto);
 
     List<TitleEntity> findByGenreOrderedByRate(String genre);
+
+    List<TitleEntity> findAllByPartialCommonDirAndWriterPartially();
 }
