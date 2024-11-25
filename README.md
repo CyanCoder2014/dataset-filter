@@ -41,6 +41,19 @@ This is a Spring Boot application that imports data from a TSV file (uploaded vi
    mvn spring-boot:run
    ```
 
+**Also you can run project by docker too**:
+
+   ```bash
+   docker build -t my-java-app .
+   ```
+
+   ```bash
+   docker run -p 8080:8080 my-java-app
+
+   ```
+
+
+
 3. Access the application at: `http://localhost:8080`.
 
 4. Access the endpoints by swagger: `http://localhost:8080/swagger-ui/index.html`.
