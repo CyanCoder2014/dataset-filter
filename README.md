@@ -43,6 +43,8 @@ This is a Spring Boot application that imports data from a TSV file (uploaded vi
 
 3. Access the application at: `http://localhost:8080`.
 
+4. Access the endpoints by swagger: `http://localhost:8080/swagger-ui/index.html`.
+
 ---
 
 ## API Endpoints
@@ -61,6 +63,9 @@ curl --location 'localhost:8080/api/v1/import/titles' \
 --form 'file=@"/Users/farid/Downloads/title.basics.tsv"' \
 --form 'maxNumberOfRecords="1000"'
 ```
+
+**You can find out other imports and filters api documentation in swagger:**
+`http://localhost:8080/swagger-ui/index.html`.
 
 
 ---
