@@ -81,3 +81,9 @@ The application uses an in-memory H2 database for simplicity. You can view the d
     - **Password:** (leave blank)
 
 ---
+
+## Requests count LOG
+
+Also you can see the total HTTP requests count in log file created in log folder by `HTTP request received. Total count:` title or `Total HTTP requests since startup:` title
+
+---

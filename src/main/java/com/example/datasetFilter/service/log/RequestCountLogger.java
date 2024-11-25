@@ -12,7 +12,7 @@ public class RequestCountLogger {
     @Autowired
     private HttpRequestCounter requestCounter;
 
-    @Scheduled(fixedRate = 60000) // Log every 60 seconds
+    @Scheduled(fixedRate = 30000) // Log every 30 seconds
     public void logRequestCount() {
         int count = requestCounter.getRequestCount();
         Logger logger = LoggerFactory.getLogger(RequestCountLogger.class);
